@@ -195,6 +195,6 @@ Don't hesitate submitting issues, opening partial or completed pull requests.
 [documentation]: https://restic-compose-backup.readthedocs.io
 
 ---
-This project is sponsored by [zetta.io](https://www.zetta.io)
+This project was previously abandoned by [zetta.io](https://www.zetta.io)
 
-[![Zetta.IO](https://raw.githubusercontent.com/ZettaIO/restic-compose-backup/master/.github/logo.png)](https://www.zetta.io)
+[![Zetta.IO](https://raw.githubusercontent.com/lawndoc/restic-compose-backup/master/.github/logo.png)](https://www.zetta.io)
