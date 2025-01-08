@@ -2,6 +2,9 @@
 # Project specific
 backup.log
 
+# Environment files (potential secrets)
+*.env
+
 # IDEs
 .vscode
 .idea
