@@ -68,9 +68,9 @@ services:
     env_file:
       - restic-backup.env
     volumes:
-      # We need to communicate with docker
+      # Communicate with docker to read backup tags
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      # Persistent storage of restic cache (greatly speeds up all restic operations)
+      # Persistent restic cache (greatly speeds up all restic operations)
       - cache:/cache
   web:
     image: some_image
@@ -88,7 +88,7 @@ services:
     env_file:
       mariadb-credentials.env
     volumes:
-      - mysqldata:/var/lib/mysql
+      - mariadbdata:/var/lib/mysql
   mysql:
     image: mysql:5
     labels:
