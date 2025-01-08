@@ -7,8 +7,7 @@ RUN apk update && apk add \
     mariadb-client \
     mariadb-connector-c-dev
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
-RUN apk update && apk add postgresql-client
+RUN apk add postgresql-client --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
 
 ADD . /restic-compose-backup
 WORKDIR /restic-compose-backup
