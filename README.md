@@ -47,7 +47,7 @@ restic-backup.env
 
 ```bash
 RESTIC_REPOSITORY=<whatever backend restic supports>
-RESTIC_PASSWORD=hopefullyasecturepw
+RESTIC_PASSWORD=hopefullyasecurepw
 # snapshot prune rules
 RESTIC_KEEP_DAILY=7
 RESTIC_KEEP_WEEKLY=4
