@@ -1,13 +1,14 @@
 FROM restic/restic:0.17.3
 
-RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
 RUN apk update && apk add \
     python3 \
     py3-pip \
     dcron \
     mariadb-client \
-    postgresql-client \
-    mariadb-connector-c-dev 
+    mariadb-connector-c-dev
+
+RUN echo "http://dl-cdn.alpinelinux.org/alpine/edge/main" >> /etc/apk/repositories
+RUN apk update && apk add postgresql-client
 
 ADD . /restic-compose-backup
 WORKDIR /restic-compose-backup
