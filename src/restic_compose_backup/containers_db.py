@@ -48,6 +48,7 @@ class MariadbContainer(Container):
             f"--user={creds['username']}",
             "--all-databases",
             "--no-tablespaces",
+            "--single-transaction",
         ]
 
     def backup(self):
@@ -114,6 +115,7 @@ class MysqlContainer(Container):
             f"--user={creds['username']}",
             "--all-databases",
             "--no-tablespaces",
+            "--single-transaction",
         ]
 
     def backup(self):
