@@ -195,4 +195,4 @@ Don't hesitate submitting issues, opening partial or completed pull requests.
 ---
 This project is a fork of restic-compose-backup by [zetta.io](https://www.zetta.io)
 
-[![Zetta.IO](https://raw.githubusercontent.com/lawndoc/stack-back/master/.github/logo.png)](https://www.zetta.io)
+[![Zetta.IO](https://raw.githubusercontent.com/lawndoc/stack-back/main/.github/logo.png)](https://www.zetta.io)
