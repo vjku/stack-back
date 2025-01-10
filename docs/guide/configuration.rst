@@ -245,7 +245,7 @@ Volumes
 ~~~~~~~
 
 To enable volume backup for a service we simply add the
-`restic-compose-backup.volumes: true` label. The value
+`stack-back.volumes: true` label. The value
 must be ``true``.
 
 Example:
@@ -255,7 +255,7 @@ Example:
     myservice:
       image: some_image
       labels:
-        restic-compose-backup.volumes: true
+        stack-back.volumes: true
       volumes:
         - uploaded_media:/srv/media
         - uploaded_files:/srv/files
@@ -287,8 +287,8 @@ Include example including two volumes only:
     myservice:
       image: some_image
       labels:
-        restic-compose-backup.volumes: true
-        restic-compose-backup.volumes.include: "uploaded_media,uploaded_files"
+        stack-back.volumes: true
+        stack-back.volumes.include: "uploaded_media,uploaded_files"
       volumes:
         - uploaded_media:/srv/media
         - uploaded_files:/srv/files
@@ -305,8 +305,8 @@ Exclude example achieving the same result as the example above.
     example:
       image: some_image
       labels:
-        restic-compose-backup.volumes: true
-        restic-compose-backup.volumes.exclude: "data"
+        stack-back.volumes: true
+        stack-back.volumes.exclude: "data"
       volumes:
         # Excluded by filter
         - media:/srv/media
@@ -325,7 +325,7 @@ mariadb
 ~~~~~~~
 
 To enable backup of mariadb simply add the
-``restic-compose-backup.mariadb: true`` label.
+``stack-back.mariadb: true`` label.
 
 Credentials are fetched from the following environment
 variables in the mariadb service. This is the standard
@@ -352,7 +352,7 @@ Example:
     mariadb:
       image: mariadb:10
       labels:
-        restic-compose-backup.mariadb: true
+        stack-back.mariadb: true
       env_file:
         mariadb-credentials.env
       volumes:
@@ -365,7 +365,7 @@ mysql
 ~~~~~
 
 To enable backup of mysql simply add the
-``restic-compose-backup.mysql: true`` label.
+``stack-back.mysql: true`` label.
 
 Credentials are fetched from the following environment
 variables in the mysql service. This is the standard
@@ -392,7 +392,7 @@ Example:
     mysql:
       image: mysql:5
       labels:
-        restic-compose-backup.mysql: true
+        stack-back.mysql: true
       env_file:
         mysql-credentials.env
       volumes:
@@ -405,7 +405,7 @@ postgres
 ~~~~~~~~
 
 To enable backup of mysql simply add the
-``restic-compose-backup.postgres: true`` label.
+``stack-back.postgres: true`` label.
 
 Credentials are fetched from the following environment
 variables in the postgres service. This is the standard
@@ -433,7 +433,7 @@ Example:
       image: postgres:11
       labels:
         # Enables backup of this database
-        restic-compose-backup.postgres: true
+        stack-back.postgres: true
       env_file:
         postgres-credentials.env
       volumes:

@@ -161,7 +161,7 @@
             "com.docker.swarm.task": "",
             "com.docker.swarm.task.id": "q4uji32qvw4tkuvwx3pbnbgqq",
             "com.docker.swarm.task.name": "test_mariadb.1.q4uji32qvw4tkuvwx3pbnbgqq",
-            "restic-compose-backup.mariadb": "true"
+            "stack-back.mariadb": "true"
         }
     },
     "NetworkSettings": {

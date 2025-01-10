@@ -21,7 +21,7 @@
     "HostnamePath": "/var/lib/docker/containers/efa5196b4959648e3efcf5ae9f24bc4032849c2665805a5b405216f343b4decd/hostname",
     "HostsPath": "/var/lib/docker/containers/efa5196b4959648e3efcf5ae9f24bc4032849c2665805a5b405216f343b4decd/hosts",
     "LogPath": "/var/lib/docker/containers/efa5196b4959648e3efcf5ae9f24bc4032849c2665805a5b405216f343b4decd/efa5196b4959648e3efcf5ae9f24bc4032849c2665805a5b405216f343b4decd-json.log",
-    "Name": "/restic-compose-backup_mariadb_1",
+    "Name": "/stack-back_mariadb_1",
     "RestartCount": 0,
     "Driver": "overlay2",
     "Platform": "linux",
@@ -30,13 +30,13 @@
     "AppArmorProfile": "",
     "ExecIDs": null,
     "HostConfig": {
-        "Binds": ["restic-compose-backup_mariadbdata:/var/lib/mysql:rw"],
+        "Binds": ["stack-back_mariadbdata:/var/lib/mysql:rw"],
         "ContainerIDFile": "",
         "LogConfig": {
             "Type": "json-file",
             "Config": {}
         },
-        "NetworkMode": "restic-compose-backup_default",
+        "NetworkMode": "stack-back_default",
         "PortBindings": {},
         "RestartPolicy": {
             "Name": "",
@@ -113,8 +113,8 @@
     },
     "Mounts": [{
         "Type": "volume",
-        "Name": "restic-compose-backup_mariadbdata",
-        "Source": "/var/lib/docker/volumes/restic-compose-backup_mariadbdata/_data",
+        "Name": "stack-back_mariadbdata",
+        "Source": "/var/lib/docker/volumes/stack-back_mariadbdata/_data",
         "Destination": "/var/lib/mysql",
         "Driver": "local",
         "Mode": "rw",
@@ -147,12 +147,12 @@
             "com.docker.compose.config-hash": "c6ecde85ad111d324a4c97cde3a03898074b026c68ecffc0f7020e5eca9a71d7",
             "com.docker.compose.container-number": "1",
             "com.docker.compose.oneoff": "False",
-            "com.docker.compose.project": "restic-compose-backup",
+            "com.docker.compose.project": "stack-back",
             "com.docker.compose.project.config_files": "docker-compose.yaml",
-            "com.docker.compose.project.working_dir": "C:\\Users\\efors\\projects\\zetta.io\\projects\\restic-compose-backup",
+            "com.docker.compose.project.working_dir": "C:\\Users\\efors\\projects\\zetta.io\\projects\\stack-back",
             "com.docker.compose.service": "mariadb",
             "com.docker.compose.version": "1.25.4",
-            "restic-compose-backup.mariadb": "True"
+            "stack-back.mariadb": "True"
         }
     },
     "NetworkSettings": {
@@ -176,7 +176,7 @@
         "IPv6Gateway": "",
         "MacAddress": "",
         "Networks": {
-            "restic-compose-backup_default": {
+            "stack-back_default": {
                 "IPAMConfig": null,
                 "Links": null,
                 "Aliases": ["efa5196b4959", "mariadb"],

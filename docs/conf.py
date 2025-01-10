@@ -17,7 +17,7 @@
 
 # -- Project information -----------------------------------------------------
 
-project = 'restic-compose-backup'
+project = 'stack-back'
 copyright = '2019, Zetta.IO Technology AS'
 author = 'Zetta.IO Technology AS'
 

@@ -9,8 +9,8 @@ RUN apk update && apk add \
 
 RUN apk add postgresql-client --repository=http://dl-cdn.alpinelinux.org/alpine/edge/main
 
-ADD . /restic-compose-backup
-WORKDIR /restic-compose-backup
+ADD . /stack-back
+WORKDIR /stack-back
 RUN pip install -U pip setuptools wheel --break-system-packages && \
     pip install -e . --break-system-packages
 ENV XDG_CACHE_HOME=/cache

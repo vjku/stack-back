@@ -1,27 +1,25 @@
 
-# restic-compose-backup
+# stack-back
 
-![docs](https://readthedocs.org/projects/restic-compose-backup/badge/?version=latest)
+![docs](https://readthedocs.org/projects/stack-back/badge/?version=latest)
 
 Backup using [restic] for a docker-compose setup.
-Currently tested with docker-ce 17, 18 and 19.
 
-* [restic-compose-backup Documentation](https://restic-compose-backup.readthedocs.io)
-* [restic-compose-backup on Github](https://github.com/ZettaIO/restic-compose-backup)
-* [restic-compose-backup on Docker Hub](https://hub.docker.com/r/zettaio/restic-compose-backup)
+* [stack-back Documentation](https://stack-back.readthedocs.io)
+* [stack-back on Github](https://github.com/lawndoc/stack-back)
 
 Features:
 
 * Backs up docker volumes or host binds
-* Backs up postgres, mariadb and mysql databases
+* Backs up postgres, mariadb, and mysql databases
 * Notifications over mail/smtp or Discord webhooks
 
-Please report issus on [github](https://github.com/ZettaIO/restic-compose-backup/issues).
+Please report issus on [github](https://github.com/lawndoc/stack-back/issues).
 
 ## Install
 
 ```bash
-docker pull zettaio/restic-compose-backup
+docker pull ghcr.io/lawndoc/stack-back
 ```
 
 ## Configuration (env vars)
@@ -64,7 +62,7 @@ version: '3'
 services:
   # The backup service
   backup:
-    image: zettaio/restic-compose-backup:<version>
+    image: ghcr.io/lawndoc/stack-back:<version>
     env_file:
       - restic-backup.env
     volumes:
@@ -76,7 +74,7 @@ services:
     image: some_image
     labels:
       # Enables backup of the volumes below
-      restic-compose-backup.volumes: true
+      stack-back.volumes: true
     volumes:
       - media:/srv/media
       - /srv/files:/srv/files
@@ -84,7 +82,7 @@ services:
     image: mariadb:10
     labels:
       # Enables backup of this database
-      restic-compose-backup.mariadb: true
+      stack-back.mariadb: true
     env_file:
       mariadb-credentials.env
     volumes:
@@ -93,7 +91,7 @@ services:
     image: mysql:5
     labels:
       # Enables backup of this database
-      restic-compose-backup.mysql: true
+      stack-back.mysql: true
     env_file:
       mysql-credentials.env
     volumes:
@@ -103,7 +101,7 @@ services:
     image: postgres
     labels:
       # Enables backup of this database
-      restic-compose-backup.postgres: true
+      stack-back.postgres: true
     env_file:
       postgres-credentials.env
     volumes:
@@ -192,9 +190,9 @@ Contributions are welcome regardless of experience level.
 Don't hesitate submitting issues, opening partial or completed pull requests.
 
 [restic]: https://restic.net/
-[documentation]: https://restic-compose-backup.readthedocs.io
+[documentation]: https://stack-back.readthedocs.io
 
 ---
-This project is sponsored by [zetta.io](https://www.zetta.io)
+This project is a fork of restic-compose-backup by [zetta.io](https://www.zetta.io)
 
-[![Zetta.IO](https://raw.githubusercontent.com/ZettaIO/restic-compose-backup/master/.github/logo.png)](https://www.zetta.io)
+[![Zetta.IO](https://raw.githubusercontent.com/lawndoc/stack-back/master/.github/logo.png)](https://www.zetta.io)

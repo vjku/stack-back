@@ -5,20 +5,20 @@ Introduction
 Install
 -------
 
-restic-compose-backup is available at docker `docker hub`_.
+stack-back is available on GitHub Container Registry `ghcr.io`_.
 
 .. code::
 
-    docker pull restic-compose-backup
+    docker pull ghcr.io/lawndoc/stack-back
 
 Optionally it can be built from source using the github_ repository.
 
 .. code:: bash
 
-    git clone https://github.com/ZettaIO/restic-compose-backup.git
-    cd restic-compose-backup
+    git clone https://github.com/lawndoc/stack-back.git
+    cd stack-back
     # Build and tag the image locally
-    docker build src/ --tag restic-compose-backup
+    docker build src/ --tag stack-back
 
 Bug reports and issues
 ----------------------
@@ -49,5 +49,4 @@ Set up a local venv and install the package in development mode::
     pip install -e ./src
 
 
-.. _docker hub: https://hub.docker.com/r/zettaio/restic-compose-backup
-.. _github: https://github.com/ZettaIO/restic-compose-backup
+.. _github: https://github.com/lawndoc/stack-back

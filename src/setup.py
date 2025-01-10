@@ -1,8 +1,8 @@
 from setuptools import setup, find_namespace_packages
 
 setup(
-    name="restic-compose-backup",
-    url="https://github.com/ZettaIO/restic-compose-backup",
+    name="stack-back",
+    url="https://github.com/lawndoc/stack-back",
     version="0.7.1",
     author="Einar Forselv",
     author_email="eforselv@gmail.com",
@@ -14,7 +14,7 @@ setup(
         'docker~=7.1.0',
     ],
     entry_points={'console_scripts': [
-        'restic-compose-backup = restic_compose_backup.cli:main',
+        'stack-back = restic_compose_backup.cli:main',
         'rcb = restic_compose_backup.cli:main',
     ]},
 )

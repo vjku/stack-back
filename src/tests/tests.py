@@ -62,7 +62,7 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'web',
                 'labels': {
-                    'restic-compose-backup.volumes': True,
+                    'stack-back.volumes': True,
                     'test': 'test',
                 },
                 'mounts': [{
@@ -92,7 +92,7 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'web',
                 'labels': {
-                    'restic-compose-backup.volumes': True,
+                    'stack-back.volumes': True,
                 },
                 'mounts': [{
                     'Source': 'test',
@@ -103,7 +103,7 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'mysql',
                 'labels': {
-                    'restic-compose-backup.mysql': True,
+                    'stack-back.mysql': True,
                 },
                 'mounts': [{
                     'Source': 'data',
@@ -123,8 +123,8 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'web',
                 'labels': {
-                    'restic-compose-backup.volumes': True,
-                    'restic-compose-backup.volumes.include': 'media',
+                    'stack-back.volumes': True,
+                    'stack-back.volumes.include': 'media',
                 },
                 'mounts': [
                     {
@@ -157,8 +157,8 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'web',
                 'labels': {
-                    'restic-compose-backup.volumes': True,
-                    'restic-compose-backup.volumes.exclude': 'stuff',
+                    'stack-back.volumes': True,
+                    'stack-back.volumes.exclude': 'stuff',
                 },
                 'mounts': [
                     {
@@ -194,7 +194,7 @@ class ResticBackupTests(unittest.TestCase):
             {
                 'service': 'backup_runner',
                 'labels': {
-                    'restic-compose-backup.process-default': 'True',
+                    'stack-back.process-default': 'True',
                 },
             },
         ]

@@ -1,9 +1,9 @@
-.. restic-compose-backup documentation master file, created by
+.. stack-back documentation master file, created by
    sphinx-quickstart on Thu Dec  5 01:34:58 2019.
    You can adapt this file completely to your liking, but it should at least
    contain the root `toctree` directive.
 
-Welcome to restic-compose-backup's documentation!
+Welcome to stack-back's documentation!
 =================================================
 
 Simple backup with restic_ for docker-compose setups.

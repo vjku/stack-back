@@ -145,7 +145,7 @@ class Container:
 
     @property
     def volume_backup_enabled(self) -> bool:
-        """bool: If the ``restic-compose-backup.volumes`` label is set"""
+        """bool: If the ``stack-back.volumes`` label is set"""
         return utils.is_true(self.get_label(enums.LABEL_VOLUMES_ENABLED))
 
     @property
@@ -159,17 +159,17 @@ class Container:
 
     @property
     def mysql_backup_enabled(self) -> bool:
-        """bool: If the ``restic-compose-backup.mysql`` label is set"""
+        """bool: If the ``stack-back.mysql`` label is set"""
         return utils.is_true(self.get_label(enums.LABEL_MYSQL_ENABLED))
 
     @property
     def mariadb_backup_enabled(self) -> bool:
-        """bool: If the ``restic-compose-backup.mariadb`` label is set"""
+        """bool: If the ``stack-back.mariadb`` label is set"""
         return utils.is_true(self.get_label(enums.LABEL_MARIADB_ENABLED))
 
     @property
     def postgresql_backup_enabled(self) -> bool:
-        """bool: If the ``restic-compose-backup.postgres`` label is set"""
+        """bool: If the ``stack-back.postgres`` label is set"""
         return utils.is_true(self.get_label(enums.LABEL_POSTGRES_ENABLED))
 
     @property

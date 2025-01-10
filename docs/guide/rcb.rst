@@ -15,7 +15,7 @@ The command can be executed inside the container or through ``run``.
 
     # by entering the container
     $ docker-compose exec backup sh
-    /restic-compose-backup # rcb status
+    /stack-back # rcb status
 
 Log level can be overridden by using the ``--log-level``
 flag. This can help you better understand what is going on
@@ -28,8 +28,8 @@ Displays the version.
 
 Example output::
 
-    /restic-compose-backup # rcb version
-    0.4.0
+    /stack-back # rcb version
+    1.0.0
 
 status
 ~~~~~~
@@ -81,7 +81,7 @@ be done with ``restic snapshots``.
 
 Example output::
 
-    /restic-compose-backup # rcb snapshots
+    /stack-back # rcb snapshots
     repository f325264e opened successfully, password is correct
     ID        Time                 Host          Tags        Paths
     ---------------------------------------------------------------------------------------------
@@ -133,10 +133,10 @@ The backup process does the following:
 Example::
 
         $ docker-compose exec backup sh
-        /restic-compose-backup # rcb backup
+        /stack-back # rcb backup
         INFO: Starting backup container
         INFO: Backup process container: loving_jepsen
-        INFO: 2019-12-09 04:50:22,817 - INFO: Status for compose project 'restic-compose-backup'
+        INFO: 2019-12-09 04:50:22,817 - INFO: Status for compose project 'stack-back'
         INFO: 2019-12-09 04:50:22,817 - INFO: Repository: '/restic_data'
         INFO: 2019-12-09 04:50:22,817 - INFO: Backup currently running?: True
         INFO: 2019-12-09 04:50:23,701 - INFO: ------------------------- Detected Config -------------------------
@@ -168,7 +168,7 @@ the container starts. It can be user to verify the configuration.
 
 Example output::
 
-    /restic-compose-backup # rcb crontab
+    /stack-back # rcb crontab
     10 2 * * * source /env.sh && rcb backup > /proc/1/fd/1
 
 cleanup
@@ -179,7 +179,7 @@ env variables). It runs ``restic forget`` and ``restic purge``.
 
 Example output::
 
-    /restic-compose-backup # rcb cleanup
+    /stack-back # rcb cleanup
     2019-12-09 05:09:52,892 - INFO: Forget outdated snapshots
     2019-12-09 05:09:53,776 - INFO: Prune stale data freeing storage space
 
