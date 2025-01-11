@@ -4,7 +4,6 @@ services:
     build: ./src
     env_file:
       - stack-back.env
-      # - alerts.env
     labels:
       stack-back.volumes: true
       stack-back.volumes.include: 'src'
@@ -12,13 +11,9 @@ services:
       - default
       - global
     volumes:
-      # Map in docker socket
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      # Map local restic repository for dev
       - ./restic_data:/restic_data
-      # Map restic cache
       - ./restic_cache:/cache
-      # Map in project source in dev
       - ./src:/stack-back
   web:
     image: nginx
@@ -28,9 +23,6 @@ services:
     volumes:
       - ./src/tests:/srv/tests
       - ./.vscode:/srv/code
-    environment:
-      - SOME_VALUE=test
-      - ANOTHER_VALUE=1
 
   mysql5:
     image: mysql:5
