@@ -1,28 +1,52 @@
 
 # stack-back
 
-![docs](https://readthedocs.org/projects/stack-back/badge/?version=latest)
+[![docs](https://readthedocs.org/projects/stack-back/badge/?version=latest)](https://stack-back.readthedocs.io)
 
-Backup using [restic] for a docker-compose setup.
+Automated backups using [restic] for any docker-compose setup.
 
-* [stack-back Documentation](https://stack-back.readthedocs.io)
-* [stack-back on Github](https://github.com/lawndoc/stack-back)
+* Backup docker volumes or host binds
+* Backup postgres, mariadb, and mysql databases
+* Notifications over SMTP or Discord webhooks
 
-Features:
+# Usage
 
-* Backs up docker volumes or host binds
-* Backs up postgres, mariadb, and mysql databases
-* Notifications over mail/smtp or Discord webhooks
+### Just add it to your services
+
+```yaml
+services:
+  backup:
+    image: ghcr.io/lawndoc/stack-back:<version>
+    env_file:
+      - stack-back.env
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+      - cache:/cache # Persistent restic cache (greatly speeds up all restic operations)
+```
+
+### And add a label to the containers you want backed up
+
+```yaml
+  web:
+    image: some_image
+    labels:
+      stack-back.volumes: true # Enables backup of the volumes below
+    volumes:
+      - media:/srv/media
+      - /srv/files:/srv/files
+  mysql:
+    image: mysql:9
+    labels:
+      stack-back.mysql: true # Enables stateful backup using mysqldump
+    volumes:
+      - mysql:/var/lib/mysql
+```
+
+[Documentation](https://stack-back.readthedocs.io)
 
 Please report issus on [github](https://github.com/lawndoc/stack-back/issues).
 
-## Install
-
-```bash
-docker pull ghcr.io/lawndoc/stack-back
-```
-
-## Configuration (env vars)
+## Configuration (environment variables)
 
 Minimum configuration
 
@@ -31,21 +55,19 @@ RESTIC_REPOSITORY
 RESTIC_PASSWORD
 ```
 
-More config options can be found in the [documentation].
+All config options can be found in the [template env file](./stack-back.env.template)
 
-Restic backend specific env vars : https://restic.readthedocs.io/en/stable/040_backup.html#environment-variables
+Restic-specific environment variables can be found in the [restic documentation](https://restic.readthedocs.io/en/stable/040_backup.html#environment-variables)
 
-## Compose Example
+### Example config: S3 bucket
 
-We simply control what should be backed up by adding
-labels to our containers. More details are covered
-in the [documentation].
-
-restic-backup.env
+stack-back.env
 
 ```bash
-RESTIC_REPOSITORY=<whatever backend restic supports>
-RESTIC_PASSWORD=hopefullyasecurepw
+RESTIC_REPOSITORY=s3:s3.us-east-1.amazonaws.com/bucket_name
+RESTIC_PASSWORD=thisdecryptsyourbackupsdontloseit
+AWS_ACCESS_KEY_ID=<your access key id>
+AWS_SECRET_ACCESS_KEY=<your access key id>
 # snapshot prune rules
 RESTIC_KEEP_DAILY=7
 RESTIC_KEEP_WEEKLY=4
@@ -55,75 +77,14 @@ RESTIC_KEEP_YEARLY=3
 CRON_SCHEDULE="0 1 * * *"
 ```
 
-docker-compose.yaml
-
-```yaml
-version: '3'
-services:
-  # The backup service
-  backup:
-    image: ghcr.io/lawndoc/stack-back:<version>
-    env_file:
-      - restic-backup.env
-    volumes:
-      # Communicate with docker to read backup tags
-      - /var/run/docker.sock:/tmp/docker.sock:ro
-      # Persistent restic cache (greatly speeds up all restic operations)
-      - cache:/cache
-  web:
-    image: some_image
-    labels:
-      # Enables backup of the volumes below
-      stack-back.volumes: true
-    volumes:
-      - media:/srv/media
-      - /srv/files:/srv/files
-  mariadb:
-    image: mariadb:10
-    labels:
-      # Enables backup of this database
-      stack-back.mariadb: true
-    env_file:
-      mariadb-credentials.env
-    volumes:
-      - mariadbdata:/var/lib/mysql
-  mysql:
-    image: mysql:5
-    labels:
-      # Enables backup of this database
-      stack-back.mysql: true
-    env_file:
-      mysql-credentials.env
-    volumes:
-      - mysqldata:/var/lib/mysql
-
-  postgres:
-    image: postgres
-    labels:
-      # Enables backup of this database
-      stack-back.postgres: true
-    env_file:
-      postgres-credentials.env
-    volumes:
-      - pgdata:/var/lib/postgresql/data
-
-volumes:
-  media:
-  mysqldata:
-  mariadbdata:
-  pgdata:
-  cache:
-```
-
 ## The `rcb` command
 
-Everything is controlled using the `rcb` command.
-After configuring backup with labels and restarted
-the affected services we can quickly view the
-result using the `status` subcommand.
+Everything is controlled using the [`rcb` command line tool](./src/) from this repo.
+
+You can use the `rcb status` command to verify the configuration.
 
 ```bash
-$ docker-compose run --rm backup rcb status
+$ docker-compose exec -it backup rcb status
 INFO: Status for compose project 'myproject'
 INFO: Repository: '<restic repository>'
 INFO: Backup currently running?: False
@@ -139,28 +100,15 @@ INFO:  - volume: media
 INFO:  - volume: /srv/files
 ```
 
-The `status` subcommand lists what will be backed up and
-even pings the database services checking their availability.
-The `restic` command can also be used directly in the container.
+The `status` subcommand lists what will be backed up and even pings the database services checking their availability.
 
 More `rcb` commands can be found in the [documentation].
 
-## Running Tests
+# Contributing
 
-```bash
-pip install -e ./src/
-pip install -r src/tests/requirements.txt
-tox
-```
+Contributions are welcome regardless of experience level.
 
-## Building Docs
-
-```bash
-pip install -r docs/requirements.txt
-python src/setup.py build_sphinx
-```
-
-# Local dev setup
+## Local dev setup
 
 The git repository contains a simple local setup for development
 
@@ -184,15 +132,26 @@ pip3 install -e .
 Remember to enable swarm mode with `docker swarm init/join` and disable swarm
 mode with `docker swarm leave --force` when needed in development (single node setup).
 
-## Contributing
+## Running Tests
 
-Contributions are welcome regardless of experience level.
-Don't hesitate submitting issues, opening partial or completed pull requests.
+```bash
+pip install -r src/tests/requirements.txt
+tox
+```
+
+## Building Docs
+
+```bash
+pip install -r docs/requirements.txt
+python src/setup.py build_sphinx
+```
 
 [restic]: https://restic.net/
 [documentation]: https://stack-back.readthedocs.io
 
 ---
-This project is a fork of restic-compose-backup by [zetta.io](https://www.zetta.io)
+This project is an actively maintained fork of [restic-compose-backup](https://github.com/ZettaIO/restic-compose-backup) by [Zetta.IO](https://www.zetta.io).
+
+Huge thanks to them for creating this project.
 
 [![Zetta.IO](https://raw.githubusercontent.com/lawndoc/stack-back/main/.github/logo.png)](https://www.zetta.io)
