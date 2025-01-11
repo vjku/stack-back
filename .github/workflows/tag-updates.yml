@@ -9,7 +9,6 @@ on:
       - README.MD
       - LICENSE
       - docs/
-      - extras/
       - src/restic_compose_backup/__init__.py # version bumps
   workflow_dispatch:
 
