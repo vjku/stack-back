@@ -33,8 +33,8 @@ jobs:
         run: |
           version="${{ steps.version.outputs.new_tag }}"
           clean_version="${version#v}"
-          sed -i "s/__version__ = .*/__version__ = ${clean_version}/" src/restic_compose_backup/__init__.py
-          sed -i "s/release = .*/release = ${clean_version}/" docs/conf.py
+          sed -i "s/__version__ = .*/__version__ = \"${clean_version}\"/" src/restic_compose_backup/__init__.py
+          sed -i "s/release = .*/release = \"${clean_version}\"/" docs/conf.py
 
       - name: Commit changes and push version tag
         uses: stefanzweifel/git-auto-commit-action@v5
