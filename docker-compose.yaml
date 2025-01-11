@@ -3,7 +3,7 @@ services:
   backup:
     build: ./src
     env_file:
-      - restic_compose_backup.env
+      - stack-back.env
       # - alerts.env
     labels:
       stack-back.volumes: true

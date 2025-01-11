@@ -10,6 +10,7 @@ on:
       - LICENSE
       - docs/
       - extras/
+      - src/restic_compose_backup/__init__.py # version bumps
   workflow_dispatch:
 
 jobs:
@@ -20,9 +21,23 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
-      - name: Bump version and push tag
-        uses: anothrNick/github-tag-action@1.64.0 # Don't use @master or @v1 unless you're happy to test the latest version
+      - name: Get next version
+        id: version
+        uses: anothrNick/github-tag-action@1.64.0
         env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-            WITH_V: true
-            DEFAULT_BUMP: patch
+          WITH_V: true
+          DEFAULT_BUMP: patch
+          DRY_RUN: true
+
+      - name: Bump version in files
+        run: |
+          version="${{ steps.version.outputs.new_tag }}"
+          clean_version="${version#v}"
+          sed -i "s/__version__ = .*/__version__ = ${clean_version}/" src/restic_compose_backup/__init__.py
+          sed -i "s/release = .*/release = ${clean_version}/" docs/conf.py
+
+      - name: Commit changes and push version tag
+        uses: stefanzweifel/git-auto-commit-action@v5
+        with:
+          commit_message: automated version bump
+          tagging_message: ${{ steps.version.outputs.new_tag }}

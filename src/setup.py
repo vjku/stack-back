@@ -1,9 +1,10 @@
 from setuptools import setup, find_namespace_packages
+from restic_compose_backup import __version__
 
 setup(
-    name="stack-back",
+    name="restic-compose-backup",
     url="https://github.com/lawndoc/stack-back",
-    version="0.7.1",
+    version=__version__,
     author="Einar Forselv",
     author_email="eforselv@gmail.com",
     packages=find_namespace_packages(include=[
@@ -14,7 +15,7 @@ setup(
         'docker~=7.1.0',
     ],
     entry_points={'console_scripts': [
-        'stack-back = restic_compose_backup.cli:main',
+        'restic-compose-backup = restic_compose_backup.cli:main',
         'rcb = restic_compose_backup.cli:main',
     ]},
 )
