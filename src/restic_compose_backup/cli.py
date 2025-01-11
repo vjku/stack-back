@@ -147,7 +147,7 @@ def backup(config, containers):
     try:
         result = backup_runner.run(
             image=containers.this_container.image,
-            command='stack-back start-backup-process',
+            command='rcb start-backup-process',
             volumes=volumes,
             environment=containers.this_container.environment,
             source_container_id=containers.this_container.id,
