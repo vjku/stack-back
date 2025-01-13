@@ -3,7 +3,7 @@
 
 [![docs](https://readthedocs.org/projects/stack-back/badge/?version=latest)](https://stack-back.readthedocs.io)
 
-Automated backups using [restic] for any docker-compose setup.
+Automated incremental backups using [restic] for any docker-compose setup.
 
 * Backup docker volumes or host binds
 * Backup postgres, mariadb, and mysql databases
