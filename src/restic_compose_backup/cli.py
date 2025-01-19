@@ -95,6 +95,7 @@ def status(config, containers):
         logger.info('service: %s', container.service_name)
 
         if container.volume_backup_enabled:
+            logger.info(f" - stop during backup: {container.stop_during_backup}")
             for mount in container.filter_mounts():
                 logger.info(
                     ' - volume: %s -> %s',
@@ -207,6 +208,11 @@ def start_backup_process(config, containers):
         logger.error("No containers for backup found")
         exit(1)
 
+    # stop containers labeled to stop during backup
+    if len(containers.stop_during_backup_containers) > 0:
+        utils.stop_containers(containers.stop_during_backup_containers)
+
+    # back up volumes
     if has_volumes:
         try:
             logger.info('Backing up volumes')
@@ -235,6 +241,10 @@ def start_backup_process(config, containers):
             except Exception as ex:
                 logger.exception(ex)
                 errors = True
+                
+    # restart stopped containers after backup
+    if len(containers.stop_during_backup_containers) > 0:
+        utils.start_containers(containers.stop_during_backup_containers)
 
     if errors:
         logger.error('Exit code: %s', errors)
