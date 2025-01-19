@@ -171,6 +171,11 @@ class Container:
     def postgresql_backup_enabled(self) -> bool:
         """bool: If the ``stack-back.postgres`` label is set"""
         return utils.is_true(self.get_label(enums.LABEL_POSTGRES_ENABLED))
+    
+    @property
+    def stop_during_backup(self) -> bool:
+        """bool: If the ``stack-back.volumes.stop-during-backup`` label is set"""
+        return utils.is_true(self.get_label(enums.LABEL_STOP_DURING_BACKUP)) and not self.database_backup_enabled
 
     @property
     def is_backup_process_container(self) -> bool:
@@ -355,6 +360,7 @@ class RunningContainers:
         self.this_container = None
         self.backup_process_container = None
         self.stale_backup_process_containers = []
+        self.stop_during_backup_containers = []
 
         # Find the container we are running in.
         # If we don't have this information we cannot continue
@@ -378,6 +384,10 @@ class RunningContainers:
             # We only care about running containers after this point
             if not container.is_running:
                 continue
+
+            # Gather stop during backup containers
+            if container.stop_during_backup:
+                self.stop_during_backup_containers.append(container)
 
             # Detect running backup process container
             if container.is_backup_process_container:

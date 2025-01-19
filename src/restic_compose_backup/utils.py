@@ -62,6 +62,28 @@ def remove_containers(containers: List['Container']):
             c.remove()
         except Exception as ex:
             logger.exception(ex)
+            
+def stop_containers(containers: List['Container']):
+    client = docker_client()
+    logger.info('Attempting to stop containers labeled to stop during backup')
+    for container in containers:
+        logger.info(' -> stopping %s', container.name)
+        try:
+            c = client.containers.get(container.name)
+            c.stop()
+        except Exception as ex:
+            logger.exception(ex)
+            
+def start_containers(containers: List['Container']):
+    client = docker_client()
+    logger.info('Attempting to restart containers that were stopped during backup')
+    for container in containers:
+        logger.info(' -> starting %s', container.name)
+        try:
+            c = client.containers.get(container.name)
+            c.start()
+        except Exception as ex:
+            logger.exception(ex)
 
 
 def is_true(value):
