@@ -37,7 +37,6 @@ class SMTPAlert(BaseAlert):
         return self.host and self.port and self.user and len(self.to) > 0
 
     def send(self, subject: str = None, body: str = None, alert_type: str = 'INFO'):
-        # send_mail("Hello world!")
         msg = MIMEText(body)
         msg['Subject'] = f"[{alert_type}] {subject}"
         msg['From'] = self.user
@@ -45,7 +44,19 @@ class SMTPAlert(BaseAlert):
 
         try:
             logger.info("Connecting to %s port %s", self.host, self.port)
-            server = smtplib.SMTP_SSL(self.host, self.port)
+            if self.port == "465":
+                server = smtplib.SMTP_SSL(self.host, self.port)
+            else:
+                server = smtplib.SMTP(self.host, self.port)
+            if self.port == "587":
+                try:
+                    server.starttls()
+                except smtplib.SMTPHeloError:
+                    logger.error("The server didn't reply properly to the HELO greeting. Email not sent.")
+                    return
+                except smtplib.SMTPNotSupportedError:
+                    logger.error("STARTTLS not supported on server. Email not sent.")
+                    return
             server.ehlo()
             server.login(self.user, self.password)
             server.sendmail(self.user, self.to, msg.as_string())
