@@ -15,13 +15,13 @@ Automated incremental backups using [restic] for any docker-compose setup.
 
 ```yaml
 services:
-  backup:
-    image: ghcr.io/lawndoc/stack-back:<version>
+  stack-back:
+    image: vjku/stack-back:<version>
     env_file:
       - stack-back.env
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
-      - cache:/cache # Persistent restic cache (greatly speeds up all restic operations)
+      - stack-back-restic-cache:/cache # Persistent restic cache (greatly speeds up all restic operations)
 ```
 
 ### And add a label to the containers you want backed up
@@ -150,6 +150,7 @@ python src/setup.py build_sphinx
 [documentation]: https://stack-back.readthedocs.io
 
 ---
+This fork is created to get the SQL Dumps as consistent as possible to maximize restic's deduplication.
 This project is an actively maintained fork of [restic-compose-backup](https://github.com/ZettaIO/restic-compose-backup) by [Zetta.IO](https://www.zetta.io).
 
 Huge thanks to them for creating this project.
