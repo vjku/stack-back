@@ -51,7 +51,6 @@ class MariadbContainer(Container):
             "--single-transaction",
             "--order-by-primary",
             "--compact",
-            "--extended-insert",
             "--force"
         ]
 
@@ -122,7 +121,6 @@ class MysqlContainer(Container):
             "--single-transaction",
             "--order-by-primary",
             "--compact",
-            "--extended-insert",
             "--force"
         ]
 
